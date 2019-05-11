@@ -1,5 +1,6 @@
 const webpack = require('webpack');
-
+const TerserPlugin = require('terser-webpack-plugin');
+const Visualizer = require('webpack-visualizer-plugin');
 const path = require('path');
 
 module.exports = (mode) => {
@@ -29,6 +30,14 @@ module.exports = (mode) => {
       ],
     },
     optimization: {
+      minimizer: [
+        new TerserPlugin({
+          cache: true,
+          parallel: true,
+          sourceMap: true,
+          extractComments: false,
+        }),
+      ],
       runtimeChunk: 'single',
       splitChunks: {
         chunks: 'all',
@@ -51,6 +60,7 @@ module.exports = (mode) => {
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': JSON.stringify(mode),
       }),
+      new Visualizer({ filename: './statistics.html' }),
     ],
   };
 };
