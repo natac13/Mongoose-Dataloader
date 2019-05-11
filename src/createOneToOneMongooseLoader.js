@@ -30,12 +30,21 @@ function createOneToOneMongooseLoader(
   return new DataLoader(async (keys) => {
     // Use .find() to get all docs for the respective keys.
     const results = await model.find({ [field]: { $in: keys } }, projection);
-    // create a hash with keys of the field's value with the value the corresponding doc
+    // create a hash with keys as the field's value and value the corresponding doc
     // from the results array with the matching field value
     const hash = objFromListWith(R.prop(field), results);
     // async function will wrap an value returned in a Promise; meaning second requirement
     return keys.map((key) => hash[key.toString()]);
   });
+}
+
+export default createOneToOneMongooseLoader;
+
+// Example Hash
+/*
+{
+  'id1': { field: id1, ...otherInfo },
+  id2: { field: id2, ...otherInfo },
 }
 
 // * Usage: new Dataloader((keys) => createOneToOneMongooseLoader(model, keys, field))
@@ -45,4 +54,4 @@ function createOneToOneMongooseLoader(
 //   return R.map((key) => hash[key.toString()])(keys);
 // }
 
-export default createOneToOneMongooseLoader;
+*/
