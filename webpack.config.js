@@ -6,12 +6,13 @@ const path = require('path');
 module.exports = (mode) => {
   const isDevelopment = mode !== 'production';
   return {
+    target: 'node',
     context: path.resolve(__dirname), // absolute path for resolving entry point(s)
     entry: path.resolve(__dirname, 'src', 'index.js'),
     output: {
       path: path.resolve(__dirname, 'dist'),
-      filename: 'bundle.js',
-      chunkFilename: '[name].js',
+      filename: 'index.js',
+      // chunkFilename: '[name].js',
     },
     resolve: {
       extensions: ['*', '.js', '.json', '.node'],
@@ -19,7 +20,7 @@ module.exports = (mode) => {
     module: {
       rules: [
         {
-          test: /\.jsx?$/,
+          test: /\.js$/,
           exclude: /node_modules/,
           use: [
             {
@@ -38,23 +39,23 @@ module.exports = (mode) => {
           extractComments: false,
         }),
       ],
-      runtimeChunk: 'single',
-      splitChunks: {
-        chunks: 'all',
-        maxInitialRequests: Infinity,
-        minSize: 0,
-        cacheGroups: {
-          common: {
-            name: 'commons',
-            chunks: 'initial',
-            minChunks: 2,
-          },
-          vendor: {
-            test: /node_modules/,
-            name: 'vendor.bundle',
-          },
-        },
-      },
+      // runtimeChunk: 'single',
+      // splitChunks: {
+      //   chunks: 'all',
+      //   maxInitialRequests: Infinity,
+      //   minSize: 0,
+      //   cacheGroups: {
+      //     common: {
+      //       name: 'commons',
+      //       chunks: 'initial',
+      //       minChunks: 2,
+      //     },
+      //     vendor: {
+      //       test: /node_modules/,
+      //       name: 'vendor.bundle',
+      //     },
+      //   },
+      // },
     },
     plugins: [
       new webpack.DefinePlugin({

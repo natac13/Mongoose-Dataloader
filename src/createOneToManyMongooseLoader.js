@@ -2,7 +2,7 @@ import DataLoader from 'dataloader';
 import R from 'ramda';
 
 /* One-to-Many mapping of keys to an array of docs. Such as querying with a courseId for a list of classes. */
-function createOnetoManyMongooseLoader(
+function createOneToManyMongooseLoader(
   model,
   field = '_id',
   projection = { __v: false }
@@ -18,4 +18,4 @@ function createOnetoManyMongooseLoader(
   });
 }
 
-export default createOnetoManyMongooseLoader;
+export default createOneToManyMongooseLoader;
