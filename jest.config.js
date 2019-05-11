@@ -10,7 +10,7 @@ module.exports = {
   testPathIgnorePatterns: ['/node_modules/', './lib', './scripts'],
   // A preset that is used as a base for Jest's configuration
   preset: '@shelf/jest-mongodb',
-
+  coverageReporters: ['lcov', 'text'],
   // The test environment that will be used for testing
   // testEnvironment: 'node',
 };
