@@ -11,8 +11,8 @@ npm install -S @natac13/mongoose-dataloader
 ### Usage
 
 ```
-import createOneToOneMongooseLoader from '@natac13/mongoose-dataloader/createOneToOneMongooseLoader';
-import createOneToManyMongooseLoader from '@natac13/mongoose-dataloader/createOneToManyMongooseLoader';
+import createOneToOneMongooseLoader from '@natac13/mongoose-dataloader/dist/createOneToOneMongooseLoader';
+import createOneToManyMongooseLoader from '@natac13/mongoose-dataloader/dist/createOneToManyMongooseLoader';
 
 const modelLoader = createOneToOneMongooseLoader(Model, '_id');
 const doc = modelLoader.load(id);
