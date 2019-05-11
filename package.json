@@ -1,0 +1,71 @@
+{
+  "name": "Mongoose-Dataloader",
+  "version": "1.0.0",
+  "description": "Two ways to use Dataloader with Mongoose for MongoDB",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "build": "babel src/ --out-dir dist --ignore 'src/__tests__'",
+    "clean": "rimraf dist",
+    "prebuild": "npm run clean",
+    "coverage": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/natac13/Mongoose-Dataloader.git"
+  },
+  "keywords": [
+    "mongoose",
+    "dataloader",
+    "graphql"
+  ],
+  "author": "Sean Campbell <sean.campbell13@gmail.com> (https://seancampbellnatac.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/natac13/Mongoose-Dataloader/issues"
+  },
+  "homepage": "https://github.com/natac13/Mongoose-Dataloader#readme",
+  "dependencies": {
+    "dataloader": "1.4.0",
+    "mongoose": "5.5.7",
+    "ramda": "0.26.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.4.4",
+    "@babel/core": "^7.3.4",
+    "@babel/node": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.3.4",
+    "@babel/plugin-proposal-export-default-from": "^7.2.0",
+    "@babel/plugin-proposal-export-namespace-from": "^7.2.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.3.4",
+    "@babel/plugin-proposal-throw-expressions": "^7.2.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-transform-runtime": "^7.4.3",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/register": "^7.0.0",
+    "@babel/runtime": "7.4.4",
+    "@shelf/jest-mongodb": "1.0.1",
+    "babel-core": "6.26.3",
+    "babel-eslint": "10.0.1",
+    "babel-jest": "24.8.0",
+    "babel-plugin-ramda": "2.0.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "6.26.2",
+    "casual": "1.6.0",
+    "cross-env": "5.2.0",
+    "eslint": "5.16.0",
+    "eslint-config-airbnb": "17.1.0",
+    "eslint-config-prettier": "4.2.0",
+    "eslint-plugin-import": "2.17.2",
+    "eslint-plugin-jsx-a11y": "6.2.1",
+    "eslint-plugin-prettier": "3.0.1",
+    "eslint-plugin-react": "7.13.0",
+    "jest": "24.8.0",
+    "mongodb-memory-server": "5.1.1",
+    "nodemon": "1.19.0",
+    "path": "0.12.7",
+    "prettier": "1.17.0",
+    "regenerator-runtime": "0.13.2",
+    "rimraf": "2.6.3"
+  }
+}

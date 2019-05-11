@@ -1,0 +1,21 @@
+{
+  "restartable": "rs",
+  "ignore": [
+    ".git",
+    "node_modules/**/node_modules",
+    "node_modules/",
+    "app/",
+    "build/",
+    "data/",
+    "test/"
+  ],
+  "verbose": true,
+  "execMap": {
+    "js": "babel-node"
+  },
+  "events": {
+    "restart": "\"App restarted due to:\n'$FILENAME'\""
+  },
+  "watch": ["src/", "webpack.config.js"],
+  "ext": "js json graphql"
+}
