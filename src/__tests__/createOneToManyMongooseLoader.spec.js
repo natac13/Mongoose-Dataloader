@@ -35,8 +35,8 @@ describe('One to Many Loader Function', () => {
   });
 
   test('Returns an array of arrays, in the correct order.', async () => {
-    const keys = ['a', 'b']; // notice the ordering
-    const classesArrayOfArray = await classLoader.loadMany(keys);
+    const courseIds = ['a', 'b']; // notice the ordering
+    const classesArrayOfArray = await classLoader.loadMany(courseIds);
     expect(classesArrayOfArray).toHaveLength(keys.length);
     expect(classesArrayOfArray[0]).toEqual(
       expect.arrayContaining([expect.objectContaining({ courseId: 'a' })])
@@ -47,8 +47,8 @@ describe('One to Many Loader Function', () => {
   });
 
   test('Return an Array of docs that for the passed in key; 1 Key for many doc(or an array of)', async () => {
-    const key = 'b';
-    const result = await classLoader.load(key);
+    const courseId = 'b';
+    const result = await classLoader.load(courseId);
     expect(result).toHaveLength(2);
     expect(result[0]).toEqual(expect.objectContaining({ courseId: key }));
   });
