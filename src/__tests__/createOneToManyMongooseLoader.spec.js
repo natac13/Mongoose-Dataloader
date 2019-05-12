@@ -14,14 +14,9 @@ describe('One to Many Loader Function', () => {
   let connection;
 
   beforeAll(async () => {
-    const projection = { __v: false, _id: false };
     connection = await connectMongooseAndPopulate();
-    classLoader = createOneToManyMongooseLoader(
-      ClassModel,
-      'courseId',
-      projection
-    );
-    courseLoader = createOneToOneMongooseLoader(CourseModel, 'id', projection);
+    classLoader = createOneToManyMongooseLoader(ClassModel, 'courseId');
+    courseLoader = createOneToOneMongooseLoader(CourseModel, 'id');
   });
 
   afterAll(async () => {
@@ -37,7 +32,7 @@ describe('One to Many Loader Function', () => {
   test('Returns an array of arrays, in the correct order.', async () => {
     const courseIds = ['a', 'b']; // notice the ordering
     const classesArrayOfArray = await classLoader.loadMany(courseIds);
-    expect(classesArrayOfArray).toHaveLength(keys.length);
+    expect(classesArrayOfArray).toHaveLength(courseIds.length);
     expect(classesArrayOfArray[0]).toEqual(
       expect.arrayContaining([expect.objectContaining({ courseId: 'a' })])
     );
@@ -50,6 +45,13 @@ describe('One to Many Loader Function', () => {
     const courseId = 'b';
     const result = await classLoader.load(courseId);
     expect(result).toHaveLength(2);
-    expect(result[0]).toEqual(expect.objectContaining({ courseId: key }));
+    expect(result[0]).toEqual(expect.objectContaining({ courseId }));
+  });
+
+  test('Throw error when no model supplied.', () => {
+    const wrapperFn = () => createOneToManyMongooseLoader();
+
+    expect(wrapperFn).toThrow();
+    expect(wrapperFn).toThrowError(/model/i);
   });
 });

@@ -1,6 +1,6 @@
 import createOneToOneMongooseLoader from '../createOneToOneMongooseLoader';
 import CourseModel from '../../models/Course';
-import ClassModel from '../../models/Class';
+
 import {
   connectMongooseAndPopulate,
   clearDB,
@@ -13,10 +13,7 @@ describe('One to One Loader Function', () => {
 
   beforeAll(async () => {
     connection = await connectMongooseAndPopulate();
-    courseLoader = createOneToOneMongooseLoader(CourseModel, 'id', {
-      __v: false,
-      _id: false,
-    });
+    courseLoader = createOneToOneMongooseLoader(CourseModel, 'id');
   });
 
   afterAll(async () => {
@@ -29,21 +26,27 @@ describe('One to One Loader Function', () => {
   });
 
   test('Should return a Promise, that resovles to a list of courses', async () => {
-    const keys = ['a', 'c', 'b']; // notice the ordering
-    const courses = await courseLoader.loadMany(keys);
-    expect(courses).toHaveLength(keys.length);
-    expect(courses[1].id).toEqual(keys[1]);
+    const courseIds = ['a', 'c', 'b']; // notice the ordering
+    const courses = await courseLoader.loadMany(courseIds);
+    expect(courses).toHaveLength(courseIds.length);
+    expect(courses[1].id).toEqual(courseIds[1]);
   });
 
   test('Return single Document for a given key', async () => {
-    const key = 'b';
-    const course = await courseLoader.load(key);
-    expect(course.name).toEqual('Course B');
-    expect(course).toMatchInlineSnapshot(`
-      Object {
-        "id": "b",
-        "name": "Course B",
-      }
-    `);
+    const courseId = 'b';
+    const course = await courseLoader.load(courseId);
+    expect(course).toEqual(
+      expect.objectContaining({
+        name: 'Course B',
+        id: 'b',
+      })
+    );
+  });
+  
+  test('Throw error when no model supplied.', () => {
+    const wrapperFn = () => createOneToOneMongooseLoader();
+
+    expect(wrapperFn).toThrow();
+    expect(wrapperFn).toThrowError(/model/i);
   });
 });

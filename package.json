@@ -1,6 +1,6 @@
 {
   "name": "@natac13/mongoose-dataloader",
-  "version": "1.6.0",
+  "version": "2.0.0",
   "description": "Two ways to use Dataloader with Mongoose for MongoDB",
   "main": "dist/index.js",
   "module": "src/index.js",

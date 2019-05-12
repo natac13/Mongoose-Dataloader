@@ -25,17 +25,23 @@ const objFromListWith = R.curry((fn, list) =>
 function createOneToOneMongooseLoader(
   model,
   field = '_id',
-  projection = { __v: false }
+  options = { cacheKeyFn: (key) => key.toString() } // So priming the loader works
 ) {
+  if (!model) {
+    throw new Error('Need a Mongoose Model to create loader.');
+  }
   return new DataLoader(async (keys) => {
     // Use .find() to get all docs for the respective keys.
-    const results = await model.find({ [field]: { $in: keys } }, projection);
+    const results = await model.find(
+      { [field]: { $in: keys } },
+      { __v: false }
+    );
     // create a hash with keys as the field's value and value the corresponding doc
     // from the results array with the matching field value
     const hash = objFromListWith(R.prop(field), results);
     // async function will wrap an value returned in a Promise; meaning second requirement
     return keys.map((key) => hash[key.toString()]);
-  });
+  }, options);
 }
 
 export default createOneToOneMongooseLoader;
