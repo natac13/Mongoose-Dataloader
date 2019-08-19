@@ -5,16 +5,23 @@ import R from 'ramda';
 function createOneToManyMongooseLoader(
   model,
   field = '_id',
-  options = { cacheKeyFn: (key) => key.toString() }
+  options = { lean: false, projection: {} },
+  dataLoaderOpts = { cacheKeyFn: (key) => key.toString() }
 ) {
   if (!model) {
     throw new Error('Need a Mongoose Model to create loader.');
   }
+  const { projection, lean } = options;
+  delete options.projection;
   return new DataLoader(async (keys) => {
     // Query the db for the requested docs; results is an array.
     const results = await model.find(
       { [field]: { $in: keys } },
-      { __v: false }
+      { ...projection },
+      {
+        lean,
+        ...options,
+      }
     );
     // Using Ramda's groupBy function create a hash with the keys as the field's values
     // with the values as the array of found documents that match the keys for the
@@ -22,7 +29,7 @@ function createOneToManyMongooseLoader(
     const hash = R.groupBy(R.prop(field), results);
     // map the keys so that I return the array of doc that matches each key passed in.
     return keys.map((key) => hash[key.toString()]);
-  }, options);
+  }, dataLoaderOpts);
 }
 
 export default createOneToManyMongooseLoader;

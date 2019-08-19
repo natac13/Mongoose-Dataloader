@@ -1,5 +1,6 @@
 import createOneToOneMongooseLoader from '../createOneToOneMongooseLoader';
 import CourseModel from '../../models/Course';
+import ClassModel from '../../models/Class';
 
 import {
   connectMongooseAndPopulate,
@@ -35,18 +36,31 @@ describe('One to One Loader Function', () => {
   test('Return single Document for a given key', async () => {
     const courseId = 'b';
     const course = await courseLoader.load(courseId);
-    expect(course).toEqual(
-      expect.objectContaining({
-        name: 'Course B',
-        id: 'b',
-      })
-    );
+    expect(course.name).toBeDefined();
+    expect(course.id).toBeDefined();
+    expect(course.name).toEqual('Course B');
   });
-  
+
   test('Throw error when no model supplied.', () => {
     const wrapperFn = () => createOneToOneMongooseLoader();
 
     expect(wrapperFn).toThrow();
     expect(wrapperFn).toThrowError(/model/i);
+  });
+
+  test('Projection option set for Class loader', async () => {
+    const classLoader = createOneToOneMongooseLoader(ClassModel, 'id', {
+      projection: { id: 1, date: 1, _id: 0 },
+      lean: true,
+    });
+    const classId = '1';
+    const result = await classLoader.load(classId);
+    expect(result.courseId).toBeUndefined();
+    expect(result).toMatchInlineSnapshot(`
+      Object {
+        "date": "2017-10-01",
+        "id": "1",
+      }
+    `);
   });
 });

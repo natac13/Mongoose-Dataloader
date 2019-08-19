@@ -1,7 +1,7 @@
 export const classes = [
   {
     id: '1',
-    date: '20117-10-01',
+    date: '2017-10-01',
     courseId: 'a',
   },
   {

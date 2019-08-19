@@ -25,11 +25,12 @@ const arrayOfDocs = arrayOfModelsLoader.load(id);
 
 Both functions take the same parameters.
 
-| param   | required | default | Description    |
-|:-------:|:--------:|:-------:|:--------------:|
-| model   | true     | `none`  | Mongoose Model |
-| field   | false    | `_id`   |Field to query against|
-| options | false    | `{ cacheKeyFn: (key) => key.toString() }` | Dataloader [options](https://github.com/graphql/dataloader#api) |
+|     param      | required |                  default                  |                                   Description                                   |
+| :------------: | :------: | :---------------------------------------: | :-----------------------------------------------------------------------------: |
+|     model      |   true   |                  `none`                   |                                 Mongoose Model                                  |
+|     field      |  false   |                   `_id`                   |                             Field to query against                              |
+|    options     |  false   |      { lean: true, projection: {} }       | [Mongoose options](https://mongoosejs.com/docs/api.html#query_Query-setOptions) |
+| dataLoaderOpts |  false   | `{ cacheKeyFn: (key) => key.toString() }` |         [Dataloader options](https://github.com/graphql/dataloader#api)         |
 
 ## Example
 

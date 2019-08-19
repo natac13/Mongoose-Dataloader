@@ -1,12 +1,12 @@
 {
   "name": "@natac13/mongoose-dataloader",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "Two ways to use Dataloader with Mongoose for MongoDB",
   "main": "dist/index.js",
   "module": "src/index.js",
   "scripts": {
-    "test": "jest",
-    "test:watch": "jest --watch",
+    "test": "jest --runInBand",
+    "test:watch": "jest --watch --runInBand",
     "build": "babel src --ignore 'src/__tests__' --out-dir dist",
     "clean": "rimraf dist",
     "prebuild": "npm run clean",

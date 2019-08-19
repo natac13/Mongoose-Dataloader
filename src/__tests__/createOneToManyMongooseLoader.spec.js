@@ -48,6 +48,25 @@ describe('One to Many Loader Function', () => {
     expect(result[0]).toEqual(expect.objectContaining({ courseId }));
   });
 
+  test('OneToMany Projection test', async () => {
+    const clsLoader = createOneToManyMongooseLoader(ClassModel, 'courseId', {
+      projection: { _id: 0, courseId: 1 },
+    });
+    const courseId = 'b';
+    const result = await clsLoader.load(courseId);
+    expect(result).toHaveLength(2);
+    expect(result).toMatchInlineSnapshot(`
+      Array [
+        Object {
+          "courseId": "b",
+        },
+        Object {
+          "courseId": "b",
+        },
+      ]
+    `);
+  });
+
   test('Throw error when no model supplied.', () => {
     const wrapperFn = () => createOneToManyMongooseLoader();
 
